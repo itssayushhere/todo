@@ -31,7 +31,7 @@ export const Home = () => {
     }
   };
   return (
-    <div className="mt-24 ">
+    <div className="mt-24  ">
       <div className="text-center">
         <h1 className="text-2xl">Todo App</h1>
         <span className="text-gray-500">Create your own todo list</span>
@@ -40,6 +40,8 @@ export const Home = () => {
             type="text"
             className="bg-black border-2 border-white rounded-2xl p-2 sm:w-[500px]"
             value={input}
+            autoFocus
+            placeholder="Enter Your to-do"
             onChange={handleInputChange}
           />
           <button type="submit" className="p-2 border rounded-xl ml-2">
@@ -47,7 +49,7 @@ export const Home = () => {
           </button>
         </form>
       </div>
-      <div className="flex flex-col justify-center items-center w-[700px] mx-auto border  p-2">
+      <div className="flex flex-col  justify-center items-center w-[400px] sm:w-[700px] mx-auto  p-2">
         {list &&
           list.map((item, index) => (
             <div
