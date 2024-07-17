@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose, { mongo } from "mongoose";
 import cookieParser from "cookie-parser";
+import userRoute from "./routes/user.js";
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
@@ -24,8 +25,9 @@ const corsOption = {
 app.use(express.json());
 app.use(cors(corsOption));
 app.use(cookieParser());
-
+app.use('/api/user',userRoute)
 app.listen(port, () => {
   connectdb();
   console.log("Server runing on the " + port);
 });
+//router
