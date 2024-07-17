@@ -44,19 +44,19 @@ export const Home = () => {
             placeholder="Enter Your to-do"
             onChange={handleInputChange}
           />
-          <button type="submit" className="p-2 border rounded-xl ml-2">
+          <button type="submit" className="p-2 border rounded-xl ml-2 bg-blue-950 text-white">
             Add
           </button>
         </form>
       </div>
-      <div className="flex flex-col  justify-center items-center w-[400px] sm:w-[700px] mx-auto  p-2">
+      <div className="flex flex-col  justify-center items-center w-[350px] sm:w-[700px] mx-auto  p-2">
         {list &&
           list.map((item, index) => (
             <div
               key={index}
-              className="grid grid-cols-2 gap-4 w-full items-center p-2"
+              className="grid grid-cols-3 gap-4 w-full items-center p-2"
             >
-              <div className="flex items-center gap-3 ">
+              <div className="flex items-center gap-3 grid-cols-subgrid col-span-2">
                 <div>
                   <input
                     type="checkbox"
@@ -74,7 +74,7 @@ export const Home = () => {
                   <span className="break-words overflow-x-auto">{item}</span>
                 )}
               </div>
-              <div>
+              <div className=" col-span-1 text-right">
                 <button
                   onClick={() => handleRemove(index)}
                   className="mx-auto bg-red-500 text-white p-2 rounded-lg"

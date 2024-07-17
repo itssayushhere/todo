@@ -17,7 +17,7 @@ export const Header = () => {
                 to={item.link}
                 className={({ isActive }) =>
                   isActive
-                    ? " font-medium bg-gray-900 rounded-3xl border  border-gray-600 transform ease-linear duration-500"
+                    ? "font-medium bg-gray-900 rounded-3xl border  border-gray-600 transform ease-in-out duration-500"
                     : ""
                 }
                 key={index}
