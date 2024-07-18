@@ -2,7 +2,9 @@ import express, { json, Router } from "express";
 import bcrypt from "bcryptjs";
 import User from "../schema/userSchema.js";
 import jwt from 'jsonwebtoken'
+import { authenticate } from "../verifyauth.js";
 const router = express.Router()
+//{---------------------user manupliation----------------}
 //user register
 router.post('/register',async (req, res) => {
   const { email, password,age,name} = req.body;
@@ -48,19 +50,28 @@ router.post("/login",async(req,res)=>{
     const token = jwt.sign(
       { id: user._id, email: user.email , name:user.name} ,
       process.env.JWT_SECRET,
-      { expiresIn: '10d' }
+      { expiresIn: '7d' }
     );
     const userdata = {
       id:user._id,
       name:user.name,
       age:user.age,
-      token
     }
-    res.status(200).json({success:true,message:"Login successfull",userdata})
-    
+    res.status(200).json({userdata,token})
   } catch (error) {
    res.status(400).json({success:true,message:"Error login",error}) 
   }
 })
 
+router.get('/goals',authenticate,async(req,res)=>{
+  const userId = req.userId
+  try {
+    const user = await User.findById(userId).populate('goals','goal deadline status')
+    if(!user){ return res.status(404).json({success:false,message:"User Not found"})}
+    const data = user.goals
+    res.status(200).json({data})
+  } catch (error) {
+    res.status(400).json({success:false,message:"Server Error"})
+  }
+})
 export default router

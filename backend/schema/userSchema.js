@@ -5,6 +5,6 @@ const UserSchema = new Schema({
   password: { type: String, required: true },
   name:{type:String,required:true},
   age:{type:Number,required:true},
-  goals: [{ type: String }],
+  goals: [{ type: mongoose.Types.ObjectId , ref:"Goals"}],
 });
 export default mongoose.model("User", UserSchema);

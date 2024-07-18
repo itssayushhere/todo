@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import mongoose, { mongo } from "mongoose";
 import cookieParser from "cookie-parser";
 import userRoute from "./routes/user.js";
+import goalRoute from './routes/goals.js'
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
@@ -26,6 +27,7 @@ app.use(express.json());
 app.use(cors(corsOption));
 app.use(cookieParser());
 app.use('/api/user',userRoute)
+app.use('/api/goal',goalRoute)
 app.listen(port, () => {
   connectdb();
   console.log("Server runing on the " + port);

@@ -31,7 +31,7 @@ export const Home = () => {
     }
   };
   return (
-    <div className="mt-24  ">
+    <div className="mt-28  ">
       <div className="text-center">
         <h1 className="text-2xl">Todo App</h1>
         <span className="text-gray-500">Create your own todo list</span>
