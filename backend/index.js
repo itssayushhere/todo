@@ -21,7 +21,8 @@ const connectdb = async () => {
   }
 };
 const corsOption = {
-    origin: true,
+    origin: "http://localhost:5173",//Your Url
+    credentials: true,
 };
 app.use(express.json());
 app.use(cors(corsOption));

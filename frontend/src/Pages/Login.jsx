@@ -5,10 +5,8 @@ import Error from "../utils/Error";
 
 const Login = () => {
   const navigate = useNavigate();
-
   //{-----------------------------useState-------------------------}
   const [error, setError] = useState();
-  const [data, setData] = useState({});
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -27,6 +25,7 @@ const Login = () => {
   const handlesubmit = useCallback(
     async (e) => {
       e.preventDefault();
+      setError('')
       try {
         const response = await fetch(`${BASE_URL}/user/login`, {
           method: "POST",
@@ -37,23 +36,24 @@ const Login = () => {
             email: user.email,
             password: user.password,
           }),
+          credentials: 'include', // Ensure cookies are included in the request
         });
         if (response.status === 200) {
           const result = await response.json();
-          setData(result);
-          sessionStorage.setItem('authToken', result.token);
+          console.log(result.message);
         } else if (response.status === 401) {
           setError("Invalid Password");
-        } else {
+        } else if (response.status === 404) {
           setError("User Not Found");
+        } else {
+          setError("An unexpected error occurred");
         }
       } catch (error) {
-        setError("Network Error , Please try again");
+        setError("Network Error, Please try again");
       }
     },
-    [user.email, user.password]
-  );
-  console.log(data)
+    [user.email, user.password, setError] // Add setError to the dependency array
+  );  
   //{----------------------return---------------------------}
   return (
     <div className="flex w-full mx-auto min-h-screen justify-center items-center">

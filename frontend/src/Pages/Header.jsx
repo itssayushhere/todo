@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-
+import { token } from "../config";
 export const Header = () => {
   const links = [
     { label: "Home", link: "/" },
@@ -41,7 +41,8 @@ export const Header = () => {
               ))}
             </ul>
           </div>
-          <div className="bg-black rounded-3xl overflow-hidden ml-5">
+        <div>
+          {!token &&<div className="bg-black rounded-3xl overflow-hidden ml-5">
             <ul className="flex items-center justify-evenly p-1 gap-1">
               <NavLink
                 to="/login"
@@ -56,6 +57,8 @@ export const Header = () => {
                 </li>
               </NavLink>
             </ul>
+          </div> }
+          
           </div>
         </nav>
       </div>
