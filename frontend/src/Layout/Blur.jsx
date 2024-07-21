@@ -1,22 +1,16 @@
-import { NavLink, useNavigate } from "react-router-dom";
-export const Header = () => {
-  const links = [
-    { label: "Home", link: "/home" },
-    { label: "About", link: "/about" },
-    // Add more links as needed
-  ];
-  const navigate = useNavigate();
+import { NavLink } from "react-router-dom"
+const links = [
+  { label: "Home", link: "/" },
+  { label: "About", link: "/about" },
+  // Add more links as needed
+];
+const Blur = () => {
   return (
-    <header className=" fixed top-0 w-full  justify-center p-3   border-y-2 border-white border-opacity-10  items-center z-50">
+        <header className="fixed top-0 w-full  justify-center p-3   border-y-2 border-white border-opacity-30  blur bg-black items-center z-50">
       <nav>
         <ul className=" flex justify-between items-center ">
-          <button
-            className="text-3xl font-serif font-bold text-teal-600 p-3 px-6"
-            onClick={() => navigate("/")}
-          >
-            Wayto
-          </button>
-          <div className=" justify-between items-center hidden sm:flex">
+        <li className=" text-xs font-semibold text-teal-900  mt-4 m-3  ml-3  px-8 border-8 rounded-full border-teal-300 blur-xl">Wayto</li>
+          <div className=" justify-between items-center hidden sm:flex  ">
             {links.map((item, index) => (
               <li key={index} className="p-3 font-mono text-lg">
                 <NavLink
@@ -47,5 +41,7 @@ export const Header = () => {
         </ul>
       </nav>
     </header>
-  );
-};
+  )
+}
+
+export default Blur

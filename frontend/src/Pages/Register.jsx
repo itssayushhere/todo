@@ -66,14 +66,14 @@ const Register = () => {
   };
 
   return (
-    <div className="flex w-auto justify-center items-center mx-auto min-h-screen">
+    <div className="flex w-auto justify-center items-center mx-auto min-h-screen sm:mt-0 mt-10">
       {loading && !error && <Loading />}
       {!loading && (
-        <div>
+        <div className="border-2 border-black border-opacity-30 p-4 rounded-2xl bg-slate-950 bg-opacity-40">
           <form onSubmit={submithandle}>
-            <div className="flex mx-auto justify-center items-center p-3 text-xl font-bold">
-              <h1>Register Now! And Save Your Records</h1>
-            </div>
+          <div className="  flex items-center justify-center w-full text-2xl pb-5 mb-2 border-b border-gray-800  p-2 ">
+          <span className=" font-mono font-semibold text-teal-100 text-opacity-85 text-center">Register Now! And Save Your Records</span>
+        </div>
             <div>{error && <Error message={error} />}</div>
             <div className="p-5 relative flex flex-col">
               <label
@@ -89,7 +89,7 @@ const Register = () => {
                 id="name"
                 value={user.name}
                 onChange={handleinput}
-                className="text-black px-7 py-2 rounded-lg border-2 border-gray-700"
+                className="px-7 py-2 rounded-lg border-2 border-gray-700 bg-black"
                 placeholder="Your Name"
               />
             </div>
@@ -107,7 +107,7 @@ const Register = () => {
                 id="email"
                 value={user.email}
                 onChange={handleinput}
-                className="text-black px-7 py-2 rounded-lg border-2 border-gray-700"
+                className="text-white px-7 py-2 rounded-lg border-2 border-gray-700 bg-black"
                 placeholder="Enter your Email"
               />
             </div>
@@ -125,7 +125,7 @@ const Register = () => {
                 id="password"
                 value={user.password}
                 onChange={handleinput}
-                className="text-black px-7 py-2 rounded-lg border-2 border-gray-700"
+                className="text-white px-7 py-2 rounded-lg border-2 border-gray-700 bg-black"
                 placeholder="Set Password"
               />
             </div>
@@ -143,22 +143,21 @@ const Register = () => {
                 id="age"
                 value={user.age}
                 onChange={handleinput}
-                className="text-black px-7 py-2 rounded-lg border-2 border-gray-700"
+                className="text-white px-7 py-2 bg-black rounded-lg border-2 border-gray-700"
                 placeholder="Your Age"
               />
             </div>
-            <button
-              type="submit"
-              className="p-2 bg-black text-white flex justify-center items-center mx-auto rounded"
-            >
-              Submit
+            <div className="w-full flex items-center justify-center">
+            <button className=" w-3/4 bg-gray-700 p-2 justify-center items-center font-serif font-semibold rounded-lg border-2 border-black border-opacity-30 hover:scale-105 text-white hover:font-bold transform duration-300">
+              Register
             </button>
+              </div>
           </form>
           <div className="w-full flex justify-center items-center p-2">
             <h1>
               Already registered ?{" "}
               <button
-                className=" text-blue-500 hover:text-blue-600"
+                className=" text-blue-500 hover:text-sky-300 font-serif font-bold hover:underline transition duration-300"
                 onClick={() => navigate("/login")}
               >
                 Login now

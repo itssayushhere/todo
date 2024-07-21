@@ -1,22 +1,6 @@
 body {
-  background-color: #222121;
+  background-color: #1f2937;
   color: white;
 }
 
-.gradient-text {
-  background: radial-gradient(circle, #ffffff,#000000);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: bold;
-  background-size: 200% 200%; /* Increase size for smoother transition */
-  animation: shine 3s ease-in-out infinite; /* Ensure smooth continuous loop */
-}
 
-@keyframes shine {
-  0% {
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: 100% 100%;
-  }
-}
