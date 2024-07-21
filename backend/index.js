@@ -1,36 +1,51 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import userRoute from "./routes/user.js";
-import goalRoute from './routes/goals.js'
+import goalRoute from './routes/goals.js';
+
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
+
 app.get("/", (req, res) => {
-  res.send("Api is working");
+  res.send("API is working");
 });
+
 mongoose.set("strictQuery", false);
+
 const connectdb = async () => {
   try {
-    mongoose.connect(process.env.MONGO_URL);
-    console.log("MongoDb is connected");
+    await mongoose.connect(process.env.MONGO_URL);
+    console.log("MongoDB is connected");
   } catch (error) {
-    console.log("Falure to connect the database" + error);
+    console.log("Failure to connect the database: " + error);
   }
 };
-const corsOption = {
-    origin: "http://localhost:5173",//Your Url
-    credentials: true,
+
+const corsOptions = {
+  origin: "http://localhost:5173", // Your URL
+  credentials: true,
 };
-app.use(express.json());
-app.use(cors(corsOption));
+
+app.use(cors(corsOptions));
 app.use(cookieParser());
-app.use('/api/user',userRoute)
-app.use('/api/goal',goalRoute)
+app.use(express.json());
+app.use(express.static('public', {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+  }
+}));
+
+app.use('/api/user', userRoute);
+app.use('/api/goal', goalRoute);
+
+
 app.listen(port, () => {
   connectdb();
-  console.log("Server runing on the " + port);
+  console.log("Server running on port " + port);
 });
-//router
