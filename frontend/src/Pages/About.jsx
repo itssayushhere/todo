@@ -1,7 +1,7 @@
 
 export const About = () => {
   return (
-    <div className="mt-24 p-5 max-w-[800px]">
+    <div className=" relative top-16 p-5 max-w-[800px]">
       <h1>About</h1>
       <p>Welcome to <strong>TaskMaster</strong>, your ultimate to-do app built with React! TaskMaster is designed to help you organize your tasks efficiently and boost your productivity. Whether you&apos;re managing daily chores, work projects, or personal goals, our app provides a simple and intuitive interface to keep you on track.</p>
       

@@ -6,10 +6,22 @@ export default {
   ],
   theme: {
     extend: {
-      colors:{
-        grayColor:"#222121",
+      colors: {
+        grayColor: "#222121",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.hide-scrollbar': {
+          'scrollbar-width': 'none', /* Firefox */
+          '-ms-overflow-style': 'none',  /* IE 10+ */
+        },
+        '.hide-scrollbar::-webkit-scrollbar': {
+          'display': 'none', /* Safari and Chrome */
+        },
+      });
+    }
+  ],
 };

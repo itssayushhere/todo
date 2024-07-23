@@ -56,7 +56,7 @@ const Login = () => {
   );
   //{----------------------return---------------------------}
   return (
-    <div className="flex w-full mx-auto min-h-screen justify-center items-center  ">
+    <div className="flex w-full mx-auto mt-24 justify-center items-center   ">
       <div className=" bg-slate-950 bg-opacity-45 rounded-2xl  p-5 backdrop-blur-lg border-2 border-black border-opacity-40 shadow-2xl drop-shadow-2xl ">
         <div className="  flex items-center justify-center w-full text-2xl pb-5 mb-2 border-b border-gray-800  p-2 ">
           <span className=" font-mono font-semibold text-teal-100 text-opacity-85 ">Welcome back!, to Wayto🎉</span>

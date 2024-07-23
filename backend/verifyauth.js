@@ -8,7 +8,6 @@ export const authenticate = async (req, res, next) => {
   if (!token) {
     return res.status(401).json({ success: false, message: "No token, authorization denied" });
   }
-
   try {
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -22,7 +21,6 @@ export const authenticate = async (req, res, next) => {
     if (error.name === "TokenExpiredError") {
       return res.status(401).json({ success: false, message: "Token is expired" });
     }
-
     return res.status(401).json({ success: false, message: "Invalid token" });
   }
 };

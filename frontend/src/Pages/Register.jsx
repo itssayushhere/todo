@@ -66,7 +66,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex w-auto justify-center items-center mx-auto min-h-screen sm:mt-0 mt-10">
+    <div className="flex w-auto justify-center items-center mx-auto  sm:mt-20 mt-5  ">
       {loading && !error && <Loading />}
       {!loading && (
         <div className="border-2 border-black border-opacity-30 p-4 rounded-2xl bg-slate-950 bg-opacity-40">
