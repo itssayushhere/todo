@@ -53,6 +53,7 @@ const Task = ({ items }) => {
     setDone(data);
     localStorage.setItem("done", JSON.stringify(data));
   };
+  const string = "Present Tasks"
   //@removeing list from localstorage
   return (
     <div className="flex flex-col w-full items-center justify-center my-1">
@@ -64,7 +65,7 @@ const Task = ({ items }) => {
           <div className="flex items-center gap-2">
             <span
               className={
-                day == "Present Tasks"
+                day == string
                   ? "ml-2 text-white font-extrabold "
                   : "ml-2 "
               }
@@ -75,7 +76,7 @@ const Task = ({ items }) => {
           </div>
           <span
             className={
-              day == "Present Tasks" ? "ml-2 text-white font-extrabold" : "ml-2 "
+              day == string ? "ml-2 text-white font-extrabold" : "ml-2 "
             }
           >
             {formatDate(items.date)}

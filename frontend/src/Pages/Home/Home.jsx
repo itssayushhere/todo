@@ -19,22 +19,7 @@ const Home = () => {
   useEffect(() => {
     handletask();
   }, []);
-  //@Removing value from localstorage
-  const removeFromArrayInLocalStorage = (index) => {
-    let storedArray = JSON.parse(localStorage.getItem("list")) || [];
-    const updatedArray = storedArray.filter((_, i) => i !== index);
-    localStorage.setItem("list", JSON.stringify(updatedArray));
-    setTask(updatedArray);
-  };
-  const handleRemove = (index) => {
-    let answer = confirm("Are you sure?");
-    if (answer) {
-      // User clicked OK
-      removeFromArrayInLocalStorage(index);
-    } else {
-      return null;
-    }
-  };
+
   //@return statement
   return (
     <Suspense fallback={<div>Loading...</div>}>
