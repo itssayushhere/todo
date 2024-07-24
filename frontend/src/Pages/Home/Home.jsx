@@ -45,7 +45,7 @@ const Home = () => {
         ) : (
           task.map((items, index) => (
             <div key={index} className="w-full">
-              <Task items={items} />
+              <Task items={items} recall={handletask} />
             </div>
           ))
         )}
