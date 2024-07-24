@@ -1,14 +1,18 @@
 import { useEffect, useState, useRef } from "react";
+import Error from "../../utils/Error";
+import { formatDate, getCurrentDateFormatted } from "../../utils/formatDate";
 
 // eslint-disable-next-line react/prop-types
 export const CreateTask = ({ add, close }) => {
   //@state and ref initialization
   const [input, setInput] = useState("");
   const [date,setDate] = useState("")
+  const [error,setError] = useState("")
   const modalRef = useRef();
   //@handleinput
   const handleInputChange = (e) => {
     setInput(e.target.value);
+    setError('')
   };
 
   //@ Add Item to LocalStorage
@@ -26,15 +30,15 @@ export const CreateTask = ({ add, close }) => {
   //@ Handle Add Button Click
   const handleAdd = (e) => {
     e.preventDefault();
-    if (input.trim()) {
-      addToArrayInLocalStorage({date,input:[input]});
+    if (input.trim() && date.trim()) {
+      addToArrayInLocalStorage({ date, input: [input] });
       setInput("");
-      setDate("")
       add();
       close();
+    } else {
+      setError("Enter every detail");
     }
   };
-  
 
   //@ Close Modal on Outside Click
   useEffect(() => {
@@ -48,14 +52,16 @@ export const CreateTask = ({ add, close }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [close]);
+  const current = getCurrentDateFormatted()
   //@return statement
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="absolute inset-0 bg-gray-800 blur bg-opacity-60"></div>
       <div
         ref={modalRef}
-        className="relative z-10 flex flex-col border p-4 bg-gray-950 bg-opacity-60 rounded-2xl border-white border-opacity-55"
+        className="relative z-10 flex flex-col border-2 p-4 bg-gray-950 bg-opacity-100 rounded-2xl border-white border-opacity-45"
       >
+        {error && <Error message={error}/>}
         <div className="flex gap-3 items-center text-lg ">
           <label htmlFor="textarea" className=" text-2xl text-white text-opacity-90 ">
             Task:
@@ -70,9 +76,12 @@ export const CreateTask = ({ add, close }) => {
             autoComplete="on"
           ></textarea>
         </div>
-        <div className=" mt-2 flex gap-3 items-center justify-end">
-          <label htmlFor="date">Select Date:</label>
+        <div className=" mt-2 flex gap-3 items-center justify-between">
+          <button className="p-1 bg-black border rounded-xl "onClick={()=>setDate(current)}>Set Current Date</button>
+          <div className="flex items-center gap-2">
+          <label htmlFor="date">Select_Date:</label>
           <input type="date" value={date} onChange={(e)=>setDate(e.target.value)} className=" border-2 bg-gray-600 border-black  border-opacity-25 rounded-lg px-2 w-36 text-white text-opacity-80" />          
+          </div>
         </div>
         <div className="flex w-full items-center justify-center gap-6 mt-2">
           <button

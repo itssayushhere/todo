@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { useEffect, useState } from "react";
-const CreateTask = lazy(() => import("./CreateTask"));
-const Task = lazy(()=>import('./Task'))
+import CreateTask from './CreateTask.jsx'
+const Task = lazy(() => import("./Task"));
 const Home = () => {
   //@State intialization
   const [open, setOpen] = useState(false);
@@ -10,8 +10,11 @@ const Home = () => {
 
   //@Restoring Value from localstorage
   const handletask = () => {
-    let storedArray = JSON.parse(localStorage.getItem("list"));
-    setTask(storedArray);
+    let storedArray = JSON.parse(localStorage.getItem("list")) || [];
+    const sortedData = storedArray.sort(
+      (a, b) => new Date(b.date) - new Date(a.date)
+    );
+    setTask(sortedData);
   };
   useEffect(() => {
     handletask();
@@ -32,9 +35,6 @@ const Home = () => {
       return null;
     }
   };
-
-  console.log(task);
-
   //@return statement
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -48,18 +48,27 @@ const Home = () => {
             +
           </button>
         </div>
-        {task &&
-          task.map((items) => (
-            < >
-              <Task items={items}/>
-            </>
-          ))}
+        {task.length == 0 ? (
+          <div className="w-full flex items-center justify-center ">
+            <div className="sm:w-[700px] w-11/12 p-2 sm:m-2 border-2 border-black bg-black bg-opacity-25 rounded-xl text-white text-opacity-80 font-mono gap-3 flex items-center justify-center mt-2 flex-col text-center">
+              <p className=" border-b-2 px-3 border-white border-opacity-60">
+                No Tasks
+              </p>
+              <p>Create a task by clicking on the bottom add button</p>
+            </div>
+          </div>
+        ) : (
+          task.map((items, index) => (
+            <div key={index} className="w-full">
+              <Task items={items} />
+            </div>
+          ))
+        )}
       </div>
       <div>
         {open && <CreateTask add={handletask} close={() => setOpen(false)} />}
       </div>
-      <div className="flex items-center w-full justify-center">
-      </div>
+      <div className="flex items-center w-full justify-center"></div>
     </Suspense>
   );
 };
