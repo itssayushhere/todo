@@ -41,15 +41,11 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
+      return res.status(404).json({ success: false, message: "User not found" });
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res
-        .status(401)
-        .json({ success: false, message: "Invalid Password" });
+      return res.status(401).json({ success: false, message: "Invalid Password" });
     }
     const token = jwt.sign(
       { id: user._id, email: user.email, name: user.name },
@@ -59,26 +55,65 @@ router.post("/login", async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "development",
+      secure: process.env.NODE_ENV !== "development", // Change to true for production
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(200).json({ success: true, message: "Login successful" });
   } catch (error) {
-    res
-      .status(400)
-      .json({ success: false, message: "Error logging in", error });
+    res.status(400).json({ success: false, message: "Error logging in", error });
   }
 });
 
+router.post('/logout', (req, res) => {
+  try { 
+    res.clearCookie("token");
+    res.status(200).json({success:true, message: 'Logged out successfully'});
+  } catch (error) {
+    res.status(404).json({error})
+  }
+});
+//@Get UserData
+router.get('/data',authenticate,async(req,res)=>{
+  const userId =req.userId
+  try {
+    const user = await User.findById(userId)
+    if(!user){
+      return res.status(404).json({success:false,message:"User not exists"})
+    }
+    const { password, ...rest } = user._doc;
+    res.status(200).json({
+      success: true,
+      message: "Profile info is getting",
+      data: { ...rest },
+    });
+  } catch (error) {
+    return res.status(400).json({success:false,error})
+  }
+})
+//@update data
+router.put('/update', authenticate, async (req, res) => {
+  const userId = req.userId
+  const updateData = req.body;
+  try {
+      const user = await User.findByIdAndUpdate(userId, updateData, { new: true });
+      if (!user) {
+          return res.status(404).json({ message: 'user not found' });
+      }
+      const {password,...rest} = user._doc
+      res.status(200).json({success:true, message: 'user updated successfully', data:{...rest} });
+  } catch (error) {
+      res.status(500).json({ message: 'Server error', error });
+  }
+});
 //@goals
 router.get("/goals", authenticate, async (req, res) => {
   const userId = req.userId;
   try {
     const user = await User.findById(userId).populate(
       "goals",
-      "goal deadline status"
+      "goal deadline status createdAt updatedAt"
     );
     if (!user) {
       return res

@@ -26,5 +26,20 @@ router.post('/create',authenticate,async(req,res)=>{
         res.status(400).json({success:false,message:"Network error",error})
     }
 })
+router.put('/edit/:id', authenticate, async (req, res) => {
+    const goalId = req.params.id;
+    const updateData = req.body;
+
+    try {
+        const goal = await Goals.findByIdAndUpdate(goalId, updateData, { new: true });
+        
+        if (!goal) {
+            return res.status(404).json({ message: 'Goal not found' });
+        }
+        res.status(200).json({ message: 'Goal updated successfully', goal });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+    }
+});
 
 export default router

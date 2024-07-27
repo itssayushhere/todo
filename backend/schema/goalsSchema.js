@@ -6,8 +6,8 @@ const GoalSchema = new Schema(
     deadline:{type:Date,required:true},
     status: {
       type: String,
-      enum: ["completed", "ongoing","failed"],
-      default: "ongoing"
+      enum: ["completed", "working","failed","halfway"],
+      default: "working"
     },
   },
   { timestamps: true }

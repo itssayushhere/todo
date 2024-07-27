@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
 
 export const authenticate = async (req, res, next) => {
   // Get token from cookies
@@ -6,7 +6,7 @@ export const authenticate = async (req, res, next) => {
 
   // Check if token exists
   if (!token) {
-    return res.status(401).json({ success: false, message: "No token, authorization denied" });
+    return res.status(404).json({ success: false, message: "No token, authorization denied" });
   }
   try {
     // Verify token
@@ -18,6 +18,7 @@ export const authenticate = async (req, res, next) => {
 
     next(); // Proceed to the next middleware or route handler
   } catch (error) {
+    res.clearCookie("token");
     if (error.name === "TokenExpiredError") {
       return res.status(401).json({ success: false, message: "Token is expired" });
     }

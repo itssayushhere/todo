@@ -6,5 +6,6 @@ const UserSchema = new Schema({
   name:{type:String,required:true},
   age:{type:Number,required:true},
   goals: [{ type: mongoose.Types.ObjectId , ref:"Goals"}],
+  about:{type:String}
 });
 export default mongoose.model("User", UserSchema);
