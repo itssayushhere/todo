@@ -22,8 +22,6 @@ export const Welcome = () => {
     "If you want to live a happy life, tie it to a goal, not to people or things. – Albert Einstein",
     "Never let the fear of striking out keep you from playing the game. – Babe Ruth",
     "The way to get started is to quit talking and begin doing. – Walt Disney",
-
-    // Additional quotes
     "The only way to do great work is to love what you do. – Steve Jobs",
     "Success usually comes to those who are too busy to be looking for it. – Henry David Thoreau",
     "Don’t watch the clock; do what it does. Keep going. – Sam Levenson",
@@ -60,36 +58,33 @@ export const Welcome = () => {
     return Math.floor(Math.random() * (max - min)) + min;
   };
 
-  // Example usage
-  const min = 0;
-  const max = 50;
-  const randomNumber = getRandomNumber(min, max);
+  const randomNumber = getRandomNumber(0, quotes.length);
   const navigate = useNavigate();
-  return (
-<div className="w-full h-screen flex items-center justify-center bg-gray-950 ">
-  <div className="flex flex-col items-center justify-center bg-gray-800 p-14 rounded-xl shadow-md shadow-gray-800 border-2 border-white border-opacity-30 bg-opacity-90">
-    <div className="p-10 flex items-start">
-      <h1 className="text-5xl font-serif font-bold text-teal-400 p-3 px-6">
-        Wayto
-      </h1>
-    </div>
-    <div className="flex flex-col items-center justify-center text-center space-y-4">
-      <h1 className="text-3xl font-bold text-gray-100">Welcome to Wayto</h1>
-      <span className="text-lg text-gray-300">
-        A Todo application that has various features like goal setting,
-        daily tasks, and more..
-      </span>
-      <button
-        type="button"
-        className="mt-4 px-8 py-2 bg-teal-500 text-white font-semibold rounded-lg shadow-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75"
-        onClick={() => navigate("/home")}
-      >
-        Enter...
-      </button>
-      <div className="text-sm text-gray-200">{quotes[randomNumber]}</div>
-    </div>
-  </div>
-</div>
 
+  return (
+    <div className="w-full h-screen flex items-center justify-center bg-gradient-to-r from-blue-900 via-black to-gray-900">
+      <div className="flex flex-col items-center justify-center bg-gray-800 p-14 rounded-xl shadow-2xl shadow-gray-800 border border-teal-400 border-opacity-10 bg-opacity-60 ">
+        <div className="p-10 flex items-start">
+          <h1 className="text-6xl font-serif font-bold text-teal-400 p-3 px-6 animate-pulse">
+            Wayto
+          </h1>
+        </div>
+        <div className="flex flex-col items-center justify-center text-center space-y-4">
+          <h1 className="text-4xl font-bold text-white">Welcome to Wayto</h1>
+          <span className="text-lg text-gray-300">
+            A Todo application that has various features like goal setting,
+            daily tasks, and more...
+          </span>
+          <button
+            type="button"
+            className="mt-6 px-10 py-3 bg-teal-500 text-white font-semibold rounded-lg shadow-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75 transform transition-transform duration-500 hover:scale-110"
+            onClick={() => navigate("/home")}
+          >
+            Enter...
+          </button>
+          <div className="mt-8 text-sm text-gray-200 italic border-t-2 border-gray-700 pt-4">{quotes[randomNumber]}</div>
+        </div>
+      </div>
+    </div>
   );
 };

@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
 
 const initialState = {
-    token: sessionStorage.getItem("token")
+    token: localStorage.getItem("token") || null,
+    name : localStorage.getItem("name") || null
 };
 
 // Create context
@@ -12,13 +13,13 @@ export const AuthContext = createContext(initialState);
 const reducer = (state, action) => {
     switch (action.type) {
         case "LOGIN":
-            sessionStorage.setItem("token", action.payload);
+            localStorage.setItem("token", action.payload);
             return {
                 ...state,
                 token: action.payload
             };
         case "LOGOUT":
-            sessionStorage.removeItem("token");
+            localStorage.removeItem("token");
             return {
                 ...state,
                 token: null
@@ -31,6 +32,13 @@ const reducer = (state, action) => {
 // Context Provider component
 export const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            dispatch({ type: "LOGIN", payload: token });
+        }
+    }, []);
 
     return (
         <AuthContext.Provider value={{ state, dispatch }}>

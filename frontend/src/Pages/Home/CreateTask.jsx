@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import Error from "../../utils/Error";
 import { getCurrentDateFormatted } from "../../utils/formatDate";
+import { toast } from "react-toastify";
 
 // eslint-disable-next-line react/prop-types
 export const CreateTask = ({ add, close }) => {
@@ -32,6 +33,7 @@ export const CreateTask = ({ add, close }) => {
     e.preventDefault();
     if (input.trim() && date.trim()) {
       addToArrayInLocalStorage({ date, input: [input] });
+      toast.success("Created the task")
       setInput("");
       add();
       close();
