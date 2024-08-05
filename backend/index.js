@@ -26,7 +26,7 @@ const connectdb = async () => {
 };
 
 const corsOptions = {
-  origin: "http://localhost:5173", // Your URL
+  origin: true, // Your URL
   credentials: true,
 };
 
@@ -43,7 +43,6 @@ app.use(express.static('public', {
 
 app.use('/api/user', userRoute);
 app.use('/api/goal', goalRoute);
-
 
 app.listen(port, () => {
   connectdb();
