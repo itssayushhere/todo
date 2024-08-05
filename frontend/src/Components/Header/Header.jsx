@@ -56,7 +56,7 @@ export const Header = () => {
               className={({ isActive }) =>
                 isActive
                   ? "p-4 px-6  rounded-lg  bg-gray-900 border-b-2 bg-opacity-70 "
-                  : "p-4 px-6 "
+                  : "p-4 px-6 text-gray-400 font-extrabold "
               }
             >
               User

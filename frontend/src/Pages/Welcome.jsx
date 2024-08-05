@@ -62,10 +62,10 @@ export const Welcome = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-gradient-to-r from-blue-900 via-black to-gray-900">
-      <div className="flex flex-col items-center justify-center bg-gray-800 p-14 rounded-xl shadow-2xl shadow-gray-800 border border-teal-400 border-opacity-10 bg-opacity-60 ">
+    <div className="w-full h-screen flex items-center justify-center bg-black">
+      <div className="flex flex-col items-center justify-center bg-gray-950 p-14 rounded-xl ">
         <div className="p-10 flex items-start">
-          <h1 className="text-6xl font-serif font-bold text-teal-400 p-3 px-6 animate-pulse">
+          <h1 className="text-6xl font-serif font-bold text-teal-400 p-3 px-6">
             Wayto
           </h1>
         </div>
@@ -82,7 +82,9 @@ export const Welcome = () => {
           >
             Enter...
           </button>
-          <div className="mt-8 text-sm text-gray-200 italic border-t-2 border-gray-700 pt-4">{quotes[randomNumber]}</div>
+          <div className="mt-8 text-sm text-gray-200 italic border-t-2 border-gray-700 pt-4">
+            {quotes[randomNumber]}
+          </div>
         </div>
       </div>
     </div>

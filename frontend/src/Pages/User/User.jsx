@@ -53,7 +53,7 @@ const User = () => {
             </div>
             <div className="flex flex-col items-center justify-center">
               <h1 className=" text-[9px] font-mono font-bold opacity-70">
-                Create Goals and get star
+                Complete Goals and get star
               </h1>
               <div className="flex flex-wrap  w-20 border-2  justify-center rounded bg-black bg-opacity-25 border-white border-opacity-20">
                 {data.goals.map((_, index) => (
@@ -68,6 +68,9 @@ const User = () => {
             <div className="flex gap-1 items-center flex-wrap">
               <h1 className="text-lg font-semibold">About:</h1><span>{data.about}</span>
             </div>
+          </div>
+          <div className="flex justify-start w-full ">
+            <h1>Total Goals:{data.goals.length}</h1>
           </div>
           <div>
             <button
