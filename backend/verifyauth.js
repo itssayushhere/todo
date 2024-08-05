@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 export const authenticate = async (req, res, next) => {
   // Get token from cookies
   const token = req.cookies.token;
-
   // Check if token exists
   if (!token) {
     return res.status(404).json({ success: false, message: "No token, authorization denied" });
