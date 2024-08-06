@@ -41,5 +41,41 @@ router.put('/edit/:id', authenticate, async (req, res) => {
         res.status(500).json({ message: 'Server error', error });
     }
 });
+router.delete('/delete/:id', authenticate, async (req, res) => {
+    const userId = req.userId;
+    const  goalId  = req.params.id; // Extract goalId from URL parameters
+  
+    try {
+      // Find the user
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'User not found' });
+      }
+  
+      // Find the goal
+      const goal = await Goals.findById(goalId);
+      if (!goal) {
+        return res.status(404).json({ success: false, message: 'Goal not found' });
+      }
+  
+      // Check if the goal belongs to the user
+      if (!user.goals.includes(goalId)) {
+        return res.status(403).json({ success: false, message: 'Not authorized to delete this goal' });
+      }
+  
+      // Remove the goal from the user's goals array
+      user.goals = user.goals.filter(id => id.toString() !== goalId);
+      await user.save();
+  
+      // Delete the goal from the database
+      await Goals.findByIdAndDelete(goalId);
+  
+      res.status(200).json({ success: true, message: 'Goal deleted successfully' });
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ success: false, message: 'Network error', error });
+    }
+  });
+  
 
 export default router

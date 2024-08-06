@@ -57,12 +57,10 @@ router.post("/login", async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    const isProduction = process.env.NODE_ENV === "production";
-
     res.cookie("token", token, {
       httpOnly: true,
-      secure: isProduction, // true in production, false in development
-      sameSite: isProduction ? "None" : "Lax", // Use None for cross-site cookies in production
+      secure: true,
+      sameSite: "None",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
