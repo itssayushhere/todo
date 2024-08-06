@@ -1,10 +1,12 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useContext } from 'react';
+import { AuthContext } from '../utils/AuthContext';
 
 const useFetchData = (url) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [trigger, setTrigger] = useState(false);
+    const { dispatch } = useContext(AuthContext);
 
     const fetchData = useCallback(async () => {
         setLoading(true);
@@ -21,8 +23,13 @@ const useFetchData = (url) => {
         } catch (error) {
             setLoading(false);
             setError(error.message);
+            if (error.message.includes('Token is expired') || error.message.includes('Invalid token') || error.message.includes("No token, authorization denied")) {
+                setTimeout(() => {
+                    dispatch({ type: 'LOGOUT' });
+                }, 3000);
+            }
         }
-    }, [url]);
+    }, [url, dispatch]);
 
     useEffect(() => {
         fetchData();

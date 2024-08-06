@@ -10,7 +10,6 @@ export const Goals = () => {
     `${BASE_URL}/user/goals`
   );
   const [open, setOpen] = useState(false);
-  console.log(data);
   return (
     <Suspense fallback={<Loading />}>
       {loading && !error && <Loading />}
@@ -21,7 +20,7 @@ export const Goals = () => {
             <div>
               {data.map((items) => (
                 <div key={items._id}>
-                  <Goalslist data={items} />
+                  <Goalslist data={items} reload ={refresh} />
                 </div>
               ))}
               <div className="flex items-center justify-center">
