@@ -1,4 +1,4 @@
-import { lazy, Suspense, useContext } from "react";
+import { lazy, Suspense, useContext, useState } from "react";
 import { AuthContext } from "../../utils/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../config";
@@ -12,11 +12,13 @@ const BackgroundLetterAvatars = lazy(() =>
 const User = () => {
   const { dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [logout,setlogout] = useState(false)
   //@fetch userData
   const [data, loading, error] = useFetchData(`${BASE_URL}/user/data`);
   //@handleLogout
   const handlelogout = async () => {
     try {
+      setlogout(true)
       const response = await fetch(`${BASE_URL}/user/logout`, {
         method: "POST",
         headers: {
@@ -28,9 +30,11 @@ const User = () => {
         dispatch({ type: "LOGOUT" });
         toast.success("Logout successfully");
         navigate("/login");
+        setlogout(false)
       }
     } catch (error) {
       console.error("Logout error:", error);
+      setlogout(false)
     }
   };
 
@@ -38,8 +42,9 @@ const User = () => {
   return (
     <Suspense>
       {loading && !error && <Loading />}
+      {logout && !error && <Loading />}
       {error && !loading && <Error message={error} />}
-      {!loading && !error && data && data.name && (
+      {!loading && !logout && !error && data && data.name && (
         <div className="sm:w-[700px] w-11/12 flex flex-col items-center justify-center mx-auto">
           <div className="flex flex-row items-center justify-between  p-4 mt-2 w-full rounded-3xl bg-purple-600 bg-opacity-10">
             <div className="flex flex-row items-center gap-2">
