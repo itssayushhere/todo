@@ -97,7 +97,7 @@ export const Creategoal = ({ close, recall }) => {
             />
           </div>
           <div className="flex gap-2 items-center justify-center">
-            <span className="text-md">Should be Reached by :</span>
+            <span className="text-md">Should be done by :</span>
             <input
               type="Date"
               className="bg-black bg-opacity-55 px-3 py-1 rounded-lg border border-opacity-30 border-white "

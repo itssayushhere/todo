@@ -26,7 +26,7 @@ export const Goals = () => {
               ))}
               <div className="flex items-center justify-center">
                 <button
-                  className="p-2 px-5 bg-purple-600 rounded-xl text-black border-2 border-white border-opacity-35 font-mono font-black hover:border-opacity-10 hover:bg-purple-900 transition duration-300 "
+                  className="p-2 px-5 bg-purple-600 rounded-xl text-black border-2 border-white border-opacity-35 font-mono font-black hover:border-opacity-10 hover:bg-purple-900 transition duration-300 mb-3 "
                   type="button"
                   onClick={() => setOpen(true)}
                 >
