@@ -84,7 +84,10 @@ router.post("/logout", (req, res) => {
 router.get("/data", authenticate, async (req, res) => {
   const userId = req.userId;
   try {
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate(
+      "goals",
+      "status"
+    );
     if (!user) {
       return res
         .status(404)
