@@ -92,7 +92,7 @@ const User = () => {
             </div>
           </div>
           <div className="flex justify-start w-full">
-            <h1>Total Goals: {data.goals.length}</h1>
+            <h1>Total Goals: ({completed}/{data.goals.length})</h1>
           </div>
           <div>
             <button
