@@ -41,11 +41,15 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ success: false, message: "Invalid Password" });
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid Password" });
     }
     const token = jwt.sign(
       { id: user._id, email: user.email, name: user.name },
@@ -53,34 +57,40 @@ router.post("/login", async (req, res) => {
       { expiresIn: "7d" }
     );
 
+    const isProduction = process.env.NODE_ENV === "production";
+
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV == "production", // Change to true for production
-      sameSite: "None",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      secure: isProduction, // true in production, false in development
+      sameSite: isProduction ? "None" : "Lax", // Use None for cross-site cookies in production
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
     res.status(200).json({ success: true, message: "Login successful" });
   } catch (error) {
-    res.status(400).json({ success: false, message: "Error logging in", error });
+    res
+      .status(400)
+      .json({ success: false, message: "Error logging in", error });
   }
 });
 
-router.post('/logout', (req, res) => {
-  try { 
+router.post("/logout", (req, res) => {
+  try {
     res.clearCookie("token");
-    res.status(200).json({success:true, message: 'Logged out successfully'});
+    res.status(200).json({ success: true, message: "Logged out successfully" });
   } catch (error) {
-    res.status(404).json({error})
+    res.status(404).json({ error });
   }
 });
 //@Get UserData
-router.get('/data',authenticate,async(req,res)=>{
-  const userId =req.userId
+router.get("/data", authenticate, async (req, res) => {
+  const userId = req.userId;
   try {
-    const user = await User.findById(userId)
-    if(!user){
-      return res.status(404).json({success:false,message:"User not exists"})
+    const user = await User.findById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not exists" });
     }
     const { password, ...rest } = user._doc;
     res.status(200).json({
@@ -89,22 +99,30 @@ router.get('/data',authenticate,async(req,res)=>{
       data: { ...rest },
     });
   } catch (error) {
-    return res.status(400).json({success:false,error})
+    return res.status(400).json({ success: false, error });
   }
-})
+});
 //@update data
-router.put('/update', authenticate, async (req, res) => {
-  const userId = req.userId
+router.put("/update", authenticate, async (req, res) => {
+  const userId = req.userId;
   const updateData = req.body;
   try {
-      const user = await User.findByIdAndUpdate(userId, updateData, { new: true });
-      if (!user) {
-          return res.status(404).json({ message: 'user not found' });
-      }
-      const {password,...rest} = user._doc
-      res.status(200).json({success:true, message: 'user updated successfully', data:{...rest} });
+    const user = await User.findByIdAndUpdate(userId, updateData, {
+      new: true,
+    });
+    if (!user) {
+      return res.status(404).json({ message: "user not found" });
+    }
+    const { password, ...rest } = user._doc;
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "user updated successfully",
+        data: { ...rest },
+      });
   } catch (error) {
-      res.status(500).json({ message: 'Server error', error });
+    res.status(500).json({ message: "Server error", error });
   }
 });
 //@goals
