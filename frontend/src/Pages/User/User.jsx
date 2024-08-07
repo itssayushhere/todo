@@ -91,8 +91,10 @@ const User = () => {
               <h1 className="text-lg font-semibold">About:</h1><span>{data.about}</span>
             </div>
           </div>
-          <div className="flex justify-start w-full">
-            <h1>Total Goals: ({completed}/{data.goals.length})</h1>
+          <div className="w-full">
+            <p>Goals:
+              </p>
+              <p></p>
           </div>
           <div>
             <button

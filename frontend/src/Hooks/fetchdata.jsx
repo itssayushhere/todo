@@ -26,7 +26,7 @@ const useFetchData = (url) => {
             if (error.message.includes('Token is expired') || error.message.includes('Invalid token') || error.message.includes("No token, authorization denied")) {
                 setTimeout(() => {
                     dispatch({ type: 'LOGOUT' });
-                }, 3000);
+                }, 2000);
             }
         }
     }, [url, dispatch]);

@@ -86,7 +86,7 @@ router.get("/data", authenticate, async (req, res) => {
   try {
     const user = await User.findById(userId).populate(
       "goals",
-      "status"
+      "status goal"
     );
     if (!user) {
       return res
