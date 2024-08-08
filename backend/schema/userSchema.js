@@ -8,7 +8,7 @@ const UserSchema = new Schema({
   goals: [{ type: mongoose.Types.ObjectId , ref:"Goals"}],
   about:{type:String},
   journal : [
-   { date: {type:date,required:true},
+   { date: {type:Date,required:true},
      data : {type:String,required:true}
   }
   ]

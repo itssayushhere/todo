@@ -145,4 +145,81 @@ router.get("/goals", authenticate, async (req, res) => {
     res.status(400).json({ success: false, message: "Server Error" });
   }
 });
+
+//@JOURNAL APi
+// Add Journal Entry
+router.post('/journal', authenticate, async (req, res) => {
+  const userId = req.userId;
+  const { date, data } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    user.journal.push({ date, data });
+    await user.save();
+
+    res.status(201).json({ success: true, message: 'Journal entry added', journal: user.journal });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error adding journal entry', error });
+  }
+});
+
+// Update Journal Entry
+router.put('/journal/:journalId', authenticate, async (req, res) => {
+  const userId = req.userId;
+  const { journalId } = req.params;
+  const { date, data } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    const journalEntry = user.journal.id(journalId);
+    if (!journalEntry) {
+      return res.status(404).json({ success: false, message: 'Journal entry not found' });
+    }
+
+    if (date) journalEntry.date = date;
+    if (data) journalEntry.data = data;
+
+    await user.save();
+    res.status(200).json({ success: true, message: 'Journal entry updated', journal: user.journal });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error updating journal entry', error });
+  }
+});
+
+// Delete Journal Entry
+router.delete('/journal/:journalId', authenticate, async (req, res) => {
+  const userId = req.userId;
+  const { journalId } = req.params;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    const journalEntry = user.journal.id(journalId);
+    if (!journalEntry) {
+      return res.status(404).json({ success: false, message: 'Journal entry not found' });
+    }
+
+    // Filter out the journal entry by its ID
+    user.journal = user.journal.filter(entry => entry._id.toString() !== journalId);
+    
+    await user.save();
+    
+    res.status(200).json({ success: true, message: 'Journal entry deleted', journal: user.journal });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Error deleting journal entry', error });
+  }
+});
+
 export default router;
