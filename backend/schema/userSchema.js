@@ -6,6 +6,11 @@ const UserSchema = new Schema({
   name:{type:String,required:true},
   age:{type:Number,required:true},
   goals: [{ type: mongoose.Types.ObjectId , ref:"Goals"}],
-  about:{type:String}
+  about:{type:String},
+  journal : [
+   { date: {type:date,required:true},
+     data : {type:String,required:true}
+  }
+  ]
 });
 export default mongoose.model("User", UserSchema);
