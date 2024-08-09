@@ -222,7 +222,7 @@ const User = () => {
             </ul>
           </div>
           <div className="w-full">
-            <Journal entries={data.journal}/>
+            <Journal entries={data.journal} reload = {refresh}/>
           </div>
           <div className="flex gap-4 items-center mt-6">
             <div>
