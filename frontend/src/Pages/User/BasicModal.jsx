@@ -24,7 +24,9 @@ const style = {
 export default function BasicModal({ contents ,refresh }) {
   const [dates, setDates] = useState("");
   const handleDelete = async (id) => {
-    console.log(id)
+    if (!window.confirm(`Are you sure you want to Delete because there is no going back?`)) {
+      return;
+    }
     try {
       const response = await fetch(`${BASE_URL}/user/journal/${id}`, {
         method: "DELETE",
