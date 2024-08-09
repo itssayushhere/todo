@@ -34,5 +34,5 @@
    ```bash
    git clone https://github.com/yourusername/best-todo-application.git
 
-2.**Install Dependices***
+2.**Install Dependices**:
    Check package.json file for dependices
