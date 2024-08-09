@@ -39,7 +39,7 @@ const useFetchData = (url) => {
         setTrigger(prev => !prev);
     };
 
-    return [data, loading, error, refresh];
+    return [data, loading, error, refresh,setError,setLoading];
 };
 
 export default useFetchData;

@@ -12,7 +12,9 @@
   "dependencies": {
     "@mui/icons-material": "^5.16.4",
     "@mui/material": "^5.16.4",
+    "jodit-react": "^4.1.2",
     "jwt-decode": "^4.0.0",
+    "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.24.1",
