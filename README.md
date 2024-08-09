@@ -25,7 +25,7 @@
 
 - **Frontend**: Vite-React, TailwindCSS, Toastify
 - **Backend**: Express.js
-- **Database**: (Specify your database here, e.g., MongoDB, PostgreSQL, etc.)
+- **Database**: Altas MongoDB
 - **Authentication**: Cookie-based
 
 ## Installation
@@ -33,3 +33,6 @@
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/yourusername/best-todo-application.git
+
+2.**Install Dependices***
+   Check package.json file for dependices
